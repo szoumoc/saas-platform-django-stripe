@@ -3,6 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, request
 
 from visits.models import PageVisit 
+# views.py
+from django.http import JsonResponse
+
+
+
 
 this_dir = pathlib.Path(__file__).resolve().parent
 def home_page_view(request, *args, **kwargs ):
