@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -95,7 +96,7 @@ DATABASES = {
 }
 
 CONN_MAX_AGE = config("CONN_MAX_AGE", default=30, cast=int)
-DATABASE_URL = config("DATABASE_URL",cast=str)
+DATABASE_URL = config("DATABASE_URL",default = None)
 
 if DATABASE_URL is not None:
     import dj_database_url
@@ -156,6 +157,14 @@ STATICFILES_DIRS = [
 #output for python manage.py collectstatic
 #local cdn
 STATIC_ROOT = BASE_DIR.parent / "local-cdn"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # if not DEBUG:
 #     #production cdn
