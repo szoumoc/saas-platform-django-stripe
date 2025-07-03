@@ -20,7 +20,7 @@ from .views import home_page_view, about_page_view
 from auth import views as auth_views
 
 urlpatterns = [
-    path("", home_page_view),
+    path("", home_page_view, name="home"),
     path("about/", about_page_view),
     path("hello-world/", home_page_view),
     path("admin/", admin.site.urls),
