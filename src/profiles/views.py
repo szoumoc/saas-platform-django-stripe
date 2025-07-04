@@ -9,6 +9,7 @@ User = get_user_model()
 @login_required
 def profile_view(request, username=None, *args, **kwargs):
     user = request.user
+    print('user.has_perm("auth.view_user")', user.has_perm("auth.view_user"))
     profile_user_obj = get_object_or_404(User, username=username)
     print(profile_user_obj)
     print(user)
