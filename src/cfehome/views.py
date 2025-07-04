@@ -6,9 +6,9 @@ from visits.models import PageVisit
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
 
-
-
+LOGIN_URL = settings.LOGIN_URL  # or use settings.LOGIN_URL if you want to use the value from settings
 
 this_dir = pathlib.Path(__file__).resolve().parent
 def home_page_view(request, *args, **kwargs ):
@@ -43,12 +43,12 @@ def pw_protected_view(request, *args, **kwargs):
         return render(request, "protected/view.html", {})
     return render(request, "protected/entry.html", {})
 
-@login_required
+@login_required(login_url=LOGIN_URL)
 def user_only_view(request, *args, **kwargs):
     # print(request.user.is_staff)
     return render(request, "protected/user-only.html", {})
 
-@staff_member_required
-def user_only_view(request, *args, **kwargs):
-    # print(request.user.is_staff)
+@staff_member_required(login_url=LOGIN_URL)
+def staff_only_view(request, *args, **kwargs):
+    print(request.user.is_staff)
     return render(request, "protected/user-only.html", {})
