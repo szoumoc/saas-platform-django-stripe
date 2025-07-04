@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
     #my apps
     "visits",
     "commando",
@@ -75,7 +76,7 @@ INSTALLED_APPS = [
     "slippers",
 ]
 
-
+SITE_ID = 1
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -151,10 +152,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ADD these lines instead:
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # or 'username_email' for both
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True  # Set to False if you only want email
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # You already have this
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False  # Optional: require email confirmation
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # Require password confirmation
 
 AUTHENTICATION_BACKENDS = [
     # ...
