@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from visits.models import PageVisit 
 # views.py
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 
@@ -40,3 +42,13 @@ def pw_protected_view(request, *args, **kwargs):
     if is_allowed:
         return render(request, "protected/view.html", {})
     return render(request, "protected/entry.html", {})
+
+@login_required
+def user_only_view(request, *args, **kwargs):
+    # print(request.user.is_staff)
+    return render(request, "protected/user-only.html", {})
+
+@staff_member_required
+def user_only_view(request, *args, **kwargs):
+    # print(request.user.is_staff)
+    return render(request, "protected/user-only.html", {})
